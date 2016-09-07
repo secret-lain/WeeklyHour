@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 
 import org.weeklyhour.Fragment.CalendarFragment.CalendarFragment;
-import org.weeklyhour.Fragment.PlaceholderFragment.PlaceholderFragment;
+import org.weeklyhour.Fragment.DefaultFragment.DefaultFragment;
 import org.weeklyhour.Fragment.RecyclerListFragment.RecyclerListFragment;
 
 /**
@@ -25,7 +25,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
         // 단지 섹션넘버 : n 이라고 써져있는 프래그먼트를 뿌림.
         if(position == 1)
             return CalendarFragment.newInstance("1", "2");
-        return PlaceholderFragment.newInstance(position + 1);
+        return DefaultFragment.newInstance(position + 1);
     }
 */
     @Override
@@ -33,13 +33,13 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                //return PlaceholderFragment.newInstance(123);
+                //return DefaultFragment.newInstance(123);
                 return RecyclerListFragment.newInstance();
 
             case 1:
                 return CalendarFragment.newInstance("1","2");
             case 2:
-                return PlaceholderFragment.newInstance(123);
+                return DefaultFragment.newInstance(123);
             default:
                 return null;
         }

@@ -1,7 +1,10 @@
 package org.weeklyhour.Fragment.RecyclerListFragment;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +33,7 @@ public class RecyclerListFragment extends Fragment {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,7 +53,20 @@ public class RecyclerListFragment extends Fragment {
         RecyclerView.Adapter adapter = new RecyclerViewAdapter(dummyItems);
         RecyclerView.setAdapter(adapter);
 
+        //구석에 있는 플러스버튼이다.
+        FloatingActionButton fab = (FloatingActionButton) layout.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //현재 별기능이 있진 않고 그냥 잠깐 액션한다. 스낵바 잠깐 뿅
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
         return layout;
+
+
     }
 
 }

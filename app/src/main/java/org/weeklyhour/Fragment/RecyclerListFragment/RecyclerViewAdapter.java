@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.weeklyhour.Activity.R;
+import com.danilomendes.progressbar.InvertedTextProgressbar;
 
 import java.util.ArrayList;
 
@@ -37,12 +38,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView id;
         public TextView content;
+        public InvertedTextProgressbar progressbar;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             id = (TextView) itemView.findViewById(R.id.idNumber);
             content = (TextView) itemView.findViewById(R.id.content);
+            progressbar = (InvertedTextProgressbar) itemView.findViewById(R.id.itp_progress_2);
         }
     }
 
@@ -65,6 +68,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.id.setText(mItems.get(position).idNumber);
         holder.content.setText(mItems.get(position).content);
+
+        holder.progressbar.setMaxProgress(100);
+        holder.progressbar.setMinProgress(0);
+        holder.progressbar.setProgress(0);
+        holder.progressbar.setText("TEXT");
+        holder.progressbar.setOnClickListener(new View.OnClickListener() {
+            private int progressScore = 10;
+
+            @Override
+            public void onClick(View view) {
+                InvertedTextProgressbar progressbar = (InvertedTextProgressbar) view;
+                progressbar.setProgress(progressScore);
+                progressScore += 10;
+            }
+        });
     }
 
     @Override
