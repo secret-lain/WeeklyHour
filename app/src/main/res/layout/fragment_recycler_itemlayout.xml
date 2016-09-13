@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:lib="http://schemas.android.com/apk/res-auto"
@@ -10,54 +10,26 @@
     <!-- title -->
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="■"
-            android:elegantTextHeight="false"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp" />
-
-        <TextView
-            android:id="@+id/idNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="id"
-            android:elegantTextHeight="false"
-            android:textSize="40dp"
-            android:layout_gravity="center_vertical" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="content"
-            android:textSize="40dp"
-            android:layout_gravity="center_vertical" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp">
 
         <com.danilomendes.progressbar.InvertedTextProgressbar
             android:id="@+id/itp_progress_2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+
+
             android:src="@drawable/background_orange"
             android:onClick="onClick"
-            android:clickable="true" />
+            android:clickable="true"
+            android:layout_margin="5dp"
+            android:longClickable="true" />
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.CalendarView;
 
 import org.weeklyhour.Activity.R;
 
+
 /**
  */
 public class CalendarFragment extends Fragment {
@@ -19,7 +20,7 @@ public class CalendarFragment extends Fragment {
     }
 
 
-    public static CalendarFragment newInstance(String param1, String param2) {
+    public static CalendarFragment newInstance() {
         CalendarFragment fragment = new CalendarFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);

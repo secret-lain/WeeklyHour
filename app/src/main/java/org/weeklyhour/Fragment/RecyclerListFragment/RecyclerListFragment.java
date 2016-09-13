@@ -2,6 +2,7 @@ package org.weeklyhour.Fragment.RecyclerListFragment;
 
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,12 +16,13 @@ import android.view.ViewGroup;
 import org.weeklyhour.Activity.R;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RecyclerListFragment extends Fragment {
-    ArrayList<Item> dummyItems;
+    ArrayList<testItem> dummyItems;
 
 
     public RecyclerListFragment() {
@@ -38,10 +40,11 @@ public class RecyclerListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dummyItems = new ArrayList<>();
-        dummyItems.add(new Item("1", "a"));
-        dummyItems.add(new Item("2", "b"));
-        dummyItems.add(new Item("3", "c"));
-        dummyItems.add(new Item("4", "d"));
+        Random rnd = new Random();
+        dummyItems.add(new testItem("a", 5, Color.rgb(rnd.nextInt(256),rnd.nextInt(256),rnd.nextInt(256))));
+        dummyItems.add(new testItem("B", 8, Color.rgb(rnd.nextInt(256),rnd.nextInt(256),rnd.nextInt(256))));
+        dummyItems.add(new testItem("c", 10, Color.rgb(rnd.nextInt(256),rnd.nextInt(256),rnd.nextInt(256))));
+        dummyItems.add(new testItem("D", 250, Color.rgb(rnd.nextInt(256),rnd.nextInt(256),rnd.nextInt(256))));
 
         View layout = inflater.inflate(R.layout.fragment_recycler_list, container, false);
         RecyclerView RecyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
@@ -50,7 +53,7 @@ public class RecyclerListFragment extends Fragment {
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
         RecyclerView.setLayoutManager(lm);
 
-        RecyclerView.Adapter adapter = new RecyclerViewAdapter(dummyItems);
+        RecyclerView.Adapter adapter = new RecyclerViewAdapterTest(dummyItems);
         RecyclerView.setAdapter(adapter);
 
         //구석에 있는 플러스버튼이다.

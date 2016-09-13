@@ -18,5 +18,5 @@
     <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
     <dimen name="list_item_height">72dp</dimen>
 
-    <dimen name="corner_radius">4dp</dimen>
+    <dimen name="corner_radius">15dp</dimen>
 </resources>

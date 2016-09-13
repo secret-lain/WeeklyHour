@@ -33,13 +33,14 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Adapter가 3개의 Tab용 Fragment를 반환한다
+        // FragmentAdapter
         mSectionsPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         // ViewPager란 수평으로 View를 좌/우 로 스크롤 할때 사용 할때 사용하는 클래스
+        // FragmentAdapter를 추가한다.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(2);//좌우 2개까지의 Destroy하지않고 가지고있는다
 
 
         //TabLayout을 객체화하고, ViewPager를 등록한다

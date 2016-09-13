@@ -19,25 +19,16 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
     public SectionsPageAdapter(FragmentManager fm) {
         super(fm);
     }
-/*
-    @Override
-    public Fragment getItem(int position) {
-        // 단지 섹션넘버 : n 이라고 써져있는 프래그먼트를 뿌림.
-        if(position == 1)
-            return CalendarFragment.newInstance("1", "2");
-        return DefaultFragment.newInstance(position + 1);
-    }
-*/
+
+
     @Override
     public Fragment getItem(int position) {
 
         switch (position) {
             case 0:
-                //return DefaultFragment.newInstance(123);
                 return RecyclerListFragment.newInstance();
-
             case 1:
-                return CalendarFragment.newInstance("1","2");
+                return CalendarFragment.newInstance();
             case 2:
                 return DefaultFragment.newInstance(123);
             default:

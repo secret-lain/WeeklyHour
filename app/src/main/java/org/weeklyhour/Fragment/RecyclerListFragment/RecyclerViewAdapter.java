@@ -43,8 +43,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(View itemView) {
             super(itemView);
 
-            id = (TextView) itemView.findViewById(R.id.idNumber);
-            content = (TextView) itemView.findViewById(R.id.content);
             progressbar = (InvertedTextProgressbar) itemView.findViewById(R.id.itp_progress_2);
         }
     }
@@ -66,13 +64,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     * */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.id.setText(mItems.get(position).idNumber);
-        holder.content.setText(mItems.get(position).content);
 
-        holder.progressbar.setMaxProgress(100);
-        holder.progressbar.setMinProgress(0);
-        holder.progressbar.setProgress(0);
-        holder.progressbar.setText("TEXT");
+        initProgressBar(holder.progressbar);
         holder.progressbar.setOnClickListener(new View.OnClickListener() {
             private int progressScore = 10;
 
@@ -90,4 +83,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mItems.size();
     }
 
+
+    private void initProgressBar(InvertedTextProgressbar progressbar){
+        progressbar.setMaxProgress(100);
+        progressbar.setMinProgress(0);
+        progressbar.setProgress(0);
+        progressbar.setText("DEFAULT");
+    }
 }
