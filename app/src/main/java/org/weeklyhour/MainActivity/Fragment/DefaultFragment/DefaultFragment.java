@@ -1,4 +1,4 @@
-package org.weeklyhour.Fragment.DefaultFragment;
+package org.weeklyhour.MainActivity.Fragment.DefaultFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.weeklyhour.Activity.R;
+import org.weeklyhour.MainActivity.R;
 
 /**
  * A placeholder fragment containing a simple view.

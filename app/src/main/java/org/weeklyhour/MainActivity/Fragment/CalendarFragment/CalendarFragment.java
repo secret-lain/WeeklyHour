@@ -1,4 +1,4 @@
-package org.weeklyhour.Fragment.CalendarFragment;
+package org.weeklyhour.MainActivity.Fragment.CalendarFragment;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 
-import org.weeklyhour.Activity.R;
+import org.weeklyhour.MainActivity.R;
 
 
 /**

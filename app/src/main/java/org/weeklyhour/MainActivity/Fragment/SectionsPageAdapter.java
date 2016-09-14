@@ -1,14 +1,12 @@
-package org.weeklyhour.Fragment;
+package org.weeklyhour.MainActivity.Fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-
-import org.weeklyhour.Fragment.CalendarFragment.CalendarFragment;
-import org.weeklyhour.Fragment.DefaultFragment.DefaultFragment;
-import org.weeklyhour.Fragment.RecyclerListFragment.RecyclerListFragment;
-import org.weeklyhour.Fragment.RecyclerListFragment.testExpandable.testExpandableRecyclerListFragment;
+import org.weeklyhour.MainActivity.Fragment.CalendarFragment.CalendarFragment;
+import org.weeklyhour.MainActivity.Fragment.DefaultFragment.DefaultFragment;
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.RecyclerListFragment;
 
 /**
  * Created by admin on 2016-09-06.

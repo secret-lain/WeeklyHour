@@ -1,18 +1,14 @@
-package org.weeklyhour.Activity;
+package org.weeklyhour.MainActivity;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import org.weeklyhour.Fragment.SectionsPageAdapter;
+import org.weeklyhour.MainActivity.Fragment.SectionsPageAdapter;
 
 /*
 탭이 있는 메인액티비티이다.

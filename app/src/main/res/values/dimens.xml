@@ -2,6 +2,7 @@
     <!-- mainActivity margin -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="recycler_item_margin">5dp</dimen>
 
     <!-- newItemActivity margin -->
     <dimen name="item_activity_horizontal_margin">16dp</dimen>

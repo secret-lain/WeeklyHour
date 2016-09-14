@@ -1,9 +1,9 @@
-package org.weeklyhour.Activity;
+package org.weeklyhour.InsertItemActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.SaturationBar;
 import com.larswerkman.holocolorpicker.ValueBar;
+
+import org.weeklyhour.MainActivity.R;
 
 import java.util.Random;
 
@@ -77,7 +79,7 @@ public class newItemActivity extends AppCompatActivity {
                 /*
                 * RequestCode 0
                 * ResultCode 1203
-                * transfer parentitem information to MainActivity(RecyclerListFragment)
+                * transfer parentItem information to MainActivity(RecyclerListFragment)
                 * */
                 Intent result = new Intent();
                 result.putExtra("taskName", taskName.getText().toString());

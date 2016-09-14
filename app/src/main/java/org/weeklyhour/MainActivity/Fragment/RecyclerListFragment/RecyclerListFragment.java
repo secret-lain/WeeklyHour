@@ -1,6 +1,8 @@
-package org.weeklyhour.Fragment.RecyclerListFragment.testExpandable;
+package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment;
 
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,26 +13,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.weeklyhour.Activity.R;
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.childItem;
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.parentItem;
+import org.weeklyhour.MainActivity.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class testExpandableRecyclerListFragment extends Fragment {
-    ArrayList<parentItem> dummyParentItems;
-    ArrayList<childItem> dummyChildItems;
+public class RecyclerListFragment extends Fragment {
+    List<parentItem> dummyParentItems;
+    private RecyclerViewAdapter adapter;
 
-    private RecyclerView.Adapter adapter;
-
-       public testExpandableRecyclerListFragment() {
+       public RecyclerListFragment() {
         // Required empty public constructor
     }
 
-    public static testExpandableRecyclerListFragment newInstance() {
-        testExpandableRecyclerListFragment fragment = new testExpandableRecyclerListFragment();
+    public static RecyclerListFragment newInstance() {
+        RecyclerListFragment fragment = new RecyclerListFragment();
         return fragment;
     }
 
@@ -40,13 +43,10 @@ public class testExpandableRecyclerListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dummyParentItems = new ArrayList<>();
+        Random rnd = new Random();
+        dummyParentItems.add(new parentItem("a",rnd.nextInt(256), Color.rgb(rnd.nextInt(256),rnd.nextInt(256),rnd.nextInt(256)), new childItem("memo1")));
+        dummyParentItems.add(new parentItem("b",rnd.nextInt(256), Color.rgb(rnd.nextInt(256),rnd.nextInt(256),rnd.nextInt(256)), new childItem("memo2")));
 
-        List<childItem> childrenList = new ArrayList<>();
-        childrenList.add(new childItem("a"));
-        childrenList.add(new childItem("a2"));
-        dummyParentItems.add(new parentItem("A", childrenList));
-
-        dummyParentItems.add(new parentItem("B", childrenList));
 
         View layout = inflater.inflate(R.layout.fragment_recycler_list, container, false);
         RecyclerView RecyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
@@ -55,11 +55,12 @@ public class testExpandableRecyclerListFragment extends Fragment {
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
         RecyclerView.setLayoutManager(lm);
 
-        adapter = new expandableAdapter(getContext() ,dummyParentItems);
+        adapter = new RecyclerViewAdapter(dummyParentItems);
         RecyclerView.setAdapter(adapter);
 
         //구석에 있는 플러스버튼이다.
         FloatingActionButton fab = (FloatingActionButton) layout.findViewById(R.id.fab);
+        fab.setRippleColor(Color.parseColor("#0000FF"));
         fab.setLongClickable(false);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,4 +77,22 @@ public class testExpandableRecyclerListFragment extends Fragment {
 
         return layout;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /*super.onActivityResult(requestCode, resultCode, data);
+
+        //from newItemActivity, parentItem Data Inserted
+        if(resultCode == 1203){
+            String taskName = data.getStringExtra("taskName");
+            int maxDay = data.getIntExtra("maxDay", 1);
+            int color = data.getIntExtra("color", 0);
+
+            dummyParentItems.add(new parentItem(taskName,maxDay,color));
+            adapter.notifyDataSetChanged();
+
+            Snackbar.make(getView(), "New Item Inserted!", Snackbar.LENGTH_LONG).show();
+        }*/
+    }
+
 }

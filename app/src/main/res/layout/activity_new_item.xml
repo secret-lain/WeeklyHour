@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/item_activity_horizontal_margin"
     android:paddingTop="@dimen/item_activity_vertical_margin"
 
-    tools:context="org.weeklyhour.Activity.newItemActivity"
+    tools:context="org.weeklyhour.InsertItemActivity.newItemActivity"
     android:orientation="vertical"
     android:rowCount="72"
     android:columnCount="2"
