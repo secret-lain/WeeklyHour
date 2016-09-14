@@ -1,49 +1,43 @@
 package org.weeklyhour.Fragment.RecyclerListFragment;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+
 import org.weeklyhour.Activity.R;
-import com.danilomendes.progressbar.InvertedTextProgressbar;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * 어댑터는 RecyclerView에게 데이터를 전달해주는 역할을 한다.
- * 최초 선언시 선언된 부분의 Context와 전달할 데이터를 가진다
+ * 최초 선언시 RecyclerView에서 사용될 ArrayList<parentitem> 을 갖는다.
  * Created by admin on 2016-09-07.
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private ArrayList<Item> mItems;
+    private ArrayList<parentitem> mParentitems;
+    private static final Random rnd = new Random();
 
-    public RecyclerViewAdapter(ArrayList<Item> DataSet){
-        mItems = DataSet;
+    public RecyclerViewAdapter(ArrayList<parentitem> DataSet){
+        mParentitems = DataSet;
     }
 
-    /*
-    * 별동작 안함 */
-    public void setItems(ArrayList<Item> arrItems) {
-        mItems = arrItems;
-    }
-
-
-    /*
-    * 뷰홀더는 한번 선언된 데이터를 계속 가지고 새로 불러올 필요 없이 저장하는 역할을 한다.
-    * 생성자의 인자인 View itemView에서 itemLayout에 선언된 TextView 객체들을 가지게된다.
-    *
-    * */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView id;
-        public TextView content;
-        public InvertedTextProgressbar progressbar;
+        public RoundCornerProgressBar progressbar;
+        public TextView taskName;
+        public TextView day;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            progressbar = (InvertedTextProgressbar) itemView.findViewById(R.id.itp_progress_2);
+            taskName = (TextView) itemView.findViewById(R.id.taskName);
+            progressbar = (RoundCornerProgressBar) itemView.findViewById(R.id.RoundCornerProgressBar);
+            day = (TextView) itemView.findViewById(R.id.day);
         }
     }
 
@@ -53,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     * 리턴값은 onBindViewHolder에서 받는다 */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_recycler_itemlayout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_recycler_parent_item, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -64,30 +58,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     * */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        //배경은 흰색으로 고정
+        holder.progressbar.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
 
-        initProgressBar(holder.progressbar);
-        holder.progressbar.setOnClickListener(new View.OnClickListener() {
-            private int progressScore = 10;
+        //Adapter에 적용된 ArrayList에서 순차적으로 꺼내와서 실제 객체에 적용
+        holder.progressbar.setProgressColor(mParentitems.get(position).progressBarColor);
+        holder.progressbar.setMax(mParentitems.get(position).maxDay);
+        holder.progressbar.setProgress(rnd.nextInt(mParentitems.get(position).maxDay));
 
-            @Override
-            public void onClick(View view) {
-                InvertedTextProgressbar progressbar = (InvertedTextProgressbar) view;
-                progressbar.setProgress(progressScore);
-                progressScore += 10;
-            }
-        });
+        holder.taskName.setText(mParentitems.get(position).taskName);
+        holder.day.setText((int)holder.progressbar.getProgress() + " / " + mParentitems.get(position).maxDay);
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size();
-    }
-
-
-    private void initProgressBar(InvertedTextProgressbar progressbar){
-        progressbar.setMaxProgress(100);
-        progressbar.setMinProgress(0);
-        progressbar.setProgress(0);
-        progressbar.setText("DEFAULT");
+        return mParentitems.size();
     }
 }

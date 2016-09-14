@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import org.weeklyhour.Fragment.CalendarFragment.CalendarFragment;
 import org.weeklyhour.Fragment.DefaultFragment.DefaultFragment;
 import org.weeklyhour.Fragment.RecyclerListFragment.RecyclerListFragment;
+import org.weeklyhour.Fragment.RecyclerListFragment.testExpandable.testExpandableRecyclerListFragment;
 
 /**
  * Created by admin on 2016-09-06.
@@ -27,6 +28,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 return RecyclerListFragment.newInstance();
+                //return testExpandableRecyclerListFragment.newInstance();
             case 1:
                 return CalendarFragment.newInstance();
             case 2:
