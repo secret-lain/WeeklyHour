@@ -1,177 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/item_activity_vertical_margin"
-    android:paddingLeft="@dimen/item_activity_left_margin"
-    android:paddingRight="@dimen/item_activity_horizontal_margin"
-    android:paddingTop="@dimen/item_activity_vertical_margin"
 
     tools:context="org.weeklyhour.InsertItemActivity.newItemActivity"
-    android:orientation="vertical"
-    android:rowCount="72"
-    android:columnCount="2"
-    android:weightSum="1">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="horizontal"
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="taskName : "
-            android:id="@+id/taskNameTextView"
-            android:layout_alignBaseline="@+id/taskNameEditText"
-            android:layout_alignBottom="@+id/taskNameEditText"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="15dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/taskNameEditText"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/taskNameTextView"
-            android:layout_alignRight="@+id/colorPicker"
-            android:layout_alignEnd="@+id/colorPicker"
-            android:singleLine="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="maxDay : "
-            android:id="@+id/maxDayTextView"
-            android:textSize="15dp"
-            android:layout_below="@+id/taskNameEditText"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_gravity="center"
-            android:layout_marginRight="5dp" />
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="74dp"
-            android:id="@+id/numberPicker"
-            android:layout_alignTop="@+id/taskNameTextView"
-            android:layout_toRightOf="@+id/taskNameTextView"
-            android:layout_toEndOf="@+id/taskNameTextView"
-            android:layout_gravity="center_vertical"></NumberPicker>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hour"
-            android:id="@+id/hourTextView"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical|center_horizontal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.00">
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="98dp"
-                android:layout_height="wrap_content"
-                android:text="ProgressBar Color : "
-                android:id="@+id/colorPickerTextView"
-                android:textSize="15dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="15dp" />
-
-            <com.larswerkman.holocolorpicker.ColorPicker
-                android:id="@+id/colorPicker"
-                android:layout_width="wrap_content"
-                android:layout_height="245dp"
-                android:layout_below="@+id/numberPicker"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/item_activity_vertical_margin"
+            android:paddingLeft="@dimen/item_activity_left_margin"
+            android:paddingRight="@dimen/item_activity_horizontal_margin"
+            android:paddingTop="@dimen/item_activity_vertical_margin"
+            >
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="taskName : "
+                    android:id="@+id/taskNameTextView"
+                    android:layout_alignBaseline="@+id/taskNameEditText"
+                    android:layout_alignBottom="@+id/taskNameEditText"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/taskNameEditText"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/taskNameTextView"
+                    android:layout_alignRight="@+id/colorPicker"
+                    android:layout_alignEnd="@+id/colorPicker"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="maxDay : "
+                    android:id="@+id/maxDayTextView"
+                    android:textSize="15dp"
+                    android:layout_below="@+id/taskNameEditText"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp" />
+
+                <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="74dp"
+                    android:id="@+id/numberPicker"
+                    android:layout_alignTop="@+id/taskNameTextView"
+                    android:layout_toRightOf="@+id/taskNameTextView"
+                    android:layout_toEndOf="@+id/taskNameTextView"
+                    android:layout_gravity="center_vertical"></NumberPicker>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hour"
+                    android:id="@+id/hourTextView"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Saturation : "
-                android:id="@+id/textView"
-                android:textSize="15dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/textView2"
-                android:layout_alignEnd="@+id/textView2"
-                android:layout_weight="0.7" />
+                android:layout_weight="1.00">
 
-            <com.larswerkman.holocolorpicker.SaturationBar
-                android:id="@+id/saturationbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="98dp"
+                        android:layout_height="wrap_content"
+                        android:text="ProgressBar Color : "
+                        android:id="@+id/colorPickerTextView"
+                        android:textSize="15dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="15dp" />
+
+                    <com.larswerkman.holocolorpicker.ColorPicker
+                        android:id="@+id/colorPicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="245dp"
+                        android:layout_below="@+id/numberPicker"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Value : "
+                        android:id="@+id/textView2"
+                        android:textSize="15dp"
+                        android:layout_above="@+id/textView"
+                        android:layout_alignRight="@+id/colorPickerTextView"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.7" />
+
+                    <com.larswerkman.holocolorpicker.ValueBar
+                        android:id="@+id/valuebar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Opacity : "
+                        android:id="@+id/textView4"
+                        android:textSize="15dp"
+                        android:layout_above="@+id/textView"
+                        android:layout_alignRight="@+id/colorPickerTextView"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.7" />
+
+                    <com.larswerkman.holocolorpicker.OpacityBar
+                        android:id="@+id/opacitybar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saturation : "
+                        android:id="@+id/textView"
+                        android:textSize="15dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignRight="@+id/textView2"
+                        android:layout_alignEnd="@+id/textView2"
+                        android:layout_weight="0.7"
+                        android:layout_gravity="center" />
+
+                    <com.larswerkman.holocolorpicker.SaturationBar
+                        android:id="@+id/saturationbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Memo : "
+                    android:id="@+id/textView3"
+                    android:layout_alignBaseline="@+id/editText"
+                    android:layout_alignBottom="@+id/editText"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/memoEditText"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/textView3"
+                    android:layout_alignRight="@+id/colorPicker"
+                    android:layout_alignEnd="@+id/colorPicker"
+                    android:singleLine="false" />
+            </LinearLayout>
+
+
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Insert"
+                    android:id="@+id/newItemSubmitButton"
+                    android:layout_weight="0"
+                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Value : "
-                android:id="@+id/textView2"
-                android:textSize="15dp"
-                android:layout_above="@+id/textView"
-                android:layout_alignRight="@+id/colorPickerTextView"
-                android:layout_gravity="center"
-                android:layout_weight="0.7" />
-
-            <com.larswerkman.holocolorpicker.ValueBar
-                android:id="@+id/valuebar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Insert"
-            android:id="@+id/newItemSubmitButton"
-            android:layout_weight="0"
-            android:layout_gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
-
-</LinearLayout>
+    </ScrollView>
+</RelativeLayout>

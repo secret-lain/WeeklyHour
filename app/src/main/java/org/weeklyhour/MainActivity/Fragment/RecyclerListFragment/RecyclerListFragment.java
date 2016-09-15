@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.weeklyhour.InsertItemActivity.newItemActivity;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.childItem;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.parentItem;
 import org.weeklyhour.MainActivity.R;
@@ -66,11 +67,11 @@ public class RecyclerListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //현재 별기능이 있진 않고 그냥 잠깐 액션한다. 스낵바 잠깐 뿅
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
 
-                //Intent newItemActivityIntent = new Intent(getContext(), newItemActivity.class);
-                //startActivityForResult(newItemActivityIntent, 0);
+                Intent newItemActivityIntent = new Intent(getContext(), newItemActivity.class);
+                startActivityForResult(newItemActivityIntent, 0);
                 //requestCode 0 으로 newItemActivityIntent를 호출(MainActivity는 생존)
             }
         });
@@ -80,19 +81,21 @@ public class RecyclerListFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        /*super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
         //from newItemActivity, parentItem Data Inserted
         if(resultCode == 1203){
             String taskName = data.getStringExtra("taskName");
+            String memo = data.getStringExtra("memo");
             int maxDay = data.getIntExtra("maxDay", 1);
             int color = data.getIntExtra("color", 0);
 
-            dummyParentItems.add(new parentItem(taskName,maxDay,color));
-            adapter.notifyDataSetChanged();
+
+            dummyParentItems.add(new parentItem(taskName, maxDay, color, new childItem(memo)));
+            adapter.notifyParentItemInserted(dummyParentItems.size() - 1);
 
             Snackbar.make(getView(), "New Item Inserted!", Snackbar.LENGTH_LONG).show();
-        }*/
+        }
     }
 
 }

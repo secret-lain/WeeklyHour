@@ -18,7 +18,7 @@ public class parentViewHolder extends ParentViewHolder {
     public TextView day;
     public ImageView toggleArrow;
 
-    public parentViewHolder(View itemView) {
+    public parentViewHolder(final View itemView) {
         super(itemView);
 
         taskName = (TextView) itemView.findViewById(R.id.taskName);
@@ -32,11 +32,11 @@ public class parentViewHolder extends ParentViewHolder {
             public void onClick(View view) {
                 if(isExpanded()){
                     collapseView();
-                    //TODO setDrawable -> custom Arrow up
+                    toggleArrow.setImageResource(R.drawable.arrow_down);
                 }
                 else{
                     expandView();
-                    //TODO setDrawable -> custom Arrow down
+                    toggleArrow.setImageResource(R.drawable.arrow_up);
                 }
             }
         });

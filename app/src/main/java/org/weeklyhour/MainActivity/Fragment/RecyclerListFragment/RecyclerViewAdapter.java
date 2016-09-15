@@ -1,10 +1,12 @@
 package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
@@ -48,10 +50,7 @@ public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHol
 
     @Override
     public void onBindParentViewHolder(final parentViewHolder parentViewHolder, int position, ParentListItem parentListItem) {
-        parentItem pItem = (parentItem)parentListItem;
-        
-        parentViewHolder.day.setText(pItem.currDay + " / " + pItem.maxDay);
-        parentViewHolder.taskName.setText(pItem.taskName);
+        parentItem pItem = (parentItem) parentListItem;
 
         //배경은 흰색으로 고정
         parentViewHolder.progressbar.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -61,12 +60,45 @@ public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHol
         parentViewHolder.progressbar.setMax(pItem.maxDay);
         parentViewHolder.progressbar.setProgress(rnd.nextInt(pItem.maxDay + 1));
 
+        parentViewHolder.day.setText((int)parentViewHolder.progressbar.getProgress() + " / " + pItem.maxDay);
+        parentViewHolder.taskName.setText(pItem.taskName);
+
         //toggleImage의 경우 protected method때문에 new ParentViewHolder에서 정의됨
     }
 
     @Override
-    public void onBindChildViewHolder(childViewHolder childViewHolder, int position, Object childListItem) {
-        childViewHolder.memo.setText(((childItem)childListItem).memo);
+    public void onBindChildViewHolder(final childViewHolder childViewHolder, final int position, Object childListItem) {
+        childItem cItem = (childItem) childListItem;
 
+        childViewHolder.memo.setText(cItem.memo);
+        childViewHolder.startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO startButton SetOnClickListener
+            }
+        });
+
+        childViewHolder.memo.setEnabled(false);
+        childViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(childViewHolder.memo.isEnabled()){
+                    childViewHolder.memo.setEnabled(false);
+                    childViewHolder.editButton.setText("EDIT");
+                    ((parentItem)mParentItems.get(position-1)).setMemo(childViewHolder.memo.getText().toString());
+                }
+                else{
+                    childViewHolder.memo.setEnabled(true);
+                    childViewHolder.editButton.setText("DONE!");
+
+                    childViewHolder.memo.requestFocus();//포커스를 옮김
+                    childViewHolder.memo.setSelection(childViewHolder.memo.getText().length());
+                    //커서를 맨 뒤로 옮김
+                    InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+                }
+            }
+        });
     }
 }

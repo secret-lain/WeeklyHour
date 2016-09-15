@@ -9,7 +9,8 @@ import org.weeklyhour.MainActivity.Fragment.DefaultFragment.DefaultFragment;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.RecyclerListFragment;
 
 /**
- * Created by admin on 2016-09-06.
+ * ViewPager Adapter
+ *
  */
 public class SectionsPageAdapter extends FragmentPagerAdapter {
     private final int _tabCount = 3;
@@ -26,7 +27,6 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 return RecyclerListFragment.newInstance();
-                //return testExpandableRecyclerListFragment.newInstance();
             case 1:
                 return CalendarFragment.newInstance();
             case 2:
@@ -44,6 +44,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+        //탭 이름 반환
         switch (position) {
             case 0:
                 return _tabTitle[0];

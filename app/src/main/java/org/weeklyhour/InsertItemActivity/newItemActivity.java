@@ -11,6 +11,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SaturationBar;
 import com.larswerkman.holocolorpicker.ValueBar;
 
@@ -32,6 +33,7 @@ public class newItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_item);
 
         final EditText taskName = (EditText) findViewById(R.id.taskNameEditText);
+        final EditText memo = (EditText) findViewById(R.id.memoEditText);
 
         /*
         * Custom Library - ColorPicker Init
@@ -40,10 +42,12 @@ public class newItemActivity extends AppCompatActivity {
         final ColorPicker colorPicker = (ColorPicker) findViewById(R.id.colorPicker);
         final SaturationBar sBar = (SaturationBar) findViewById(R.id.saturationbar);
         final ValueBar vBar = (ValueBar) findViewById(R.id.valuebar);
+        final OpacityBar oBar = (OpacityBar) findViewById(R.id.opacitybar);
 
         //채도, 명도 바를 colorPicker에 연결
         colorPicker.addSaturationBar(sBar);
         colorPicker.addValueBar(vBar);
+        colorPicker.addOpacityBar(oBar);
 
         colorPicker.setShowOldCenterColor(false); // 가운데의 색을 하나만 보여줌
         colorPicker.setColor(Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
@@ -83,6 +87,7 @@ public class newItemActivity extends AppCompatActivity {
                 * */
                 Intent result = new Intent();
                 result.putExtra("taskName", taskName.getText().toString());
+                result.putExtra("memo", memo.getText().toString());
                 result.putExtra("color", colorPicker.getColor());
                 result.putExtra("maxDay", numberPicker.getValue());
                 setResult(1203, result);
