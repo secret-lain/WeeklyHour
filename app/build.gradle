@@ -31,4 +31,6 @@ dependencies {
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
     compile 'com.larswerkman:HoloColorPicker:1.5'
+
+    apply plugin: 'realm-android'
 }

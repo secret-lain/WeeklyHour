@@ -10,6 +10,9 @@ import android.view.MenuItem;
 
 import org.weeklyhour.MainActivity.Fragment.SectionsPageAdapter;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 /*
 탭이 있는 메인액티비티이다.
 
@@ -20,6 +23,7 @@ mViewPager는 수평으로 드래그했을때의 처리를 돕는다.
 public class MainActivity extends AppCompatActivity{
     private SectionsPageAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private RealmConfiguration realmConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,9 @@ public class MainActivity extends AppCompatActivity{
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).build();
+        //Realm.deleteRealm(realmConfig);
+        Realm.setDefaultConfiguration(realmConfig);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,12 +64,11 @@ public class MainActivity extends AppCompatActivity{
         // 아무기능 없다
         int id = item.getItemId();
 
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-        return true;
-    }
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+        }
 
-    return super.onOptionsItemSelected(item);
-}
+        return super.onOptionsItemSelected(item);
+    }
 
 }

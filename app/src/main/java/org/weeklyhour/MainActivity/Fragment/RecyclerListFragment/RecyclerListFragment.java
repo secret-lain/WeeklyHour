@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.childItem;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.parentItem;
 import org.weeklyhour.MainActivity.R;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +31,9 @@ import java.util.Random;
 public class RecyclerListFragment extends Fragment {
     List<parentItem> dummyParentItems;
     private RecyclerViewAdapter adapter;
+
+    private Realm realm;
+    private RealmResults<parentItem> parentItems;
 
        public RecyclerListFragment() {
         // Required empty public constructor
@@ -43,11 +49,6 @@ public class RecyclerListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dummyParentItems = new ArrayList<>();
-        Random rnd = new Random();
-        dummyParentItems.add(new parentItem("a",rnd.nextInt(256), Color.rgb(rnd.nextInt(256),rnd.nextInt(256),rnd.nextInt(256)), new childItem("memo1")));
-        dummyParentItems.add(new parentItem("b",rnd.nextInt(256), Color.rgb(rnd.nextInt(256),rnd.nextInt(256),rnd.nextInt(256)), new childItem("memo2")));
-
 
         View layout = inflater.inflate(R.layout.fragment_recycler_list, container, false);
         RecyclerView RecyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
@@ -56,7 +57,18 @@ public class RecyclerListFragment extends Fragment {
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
         RecyclerView.setLayoutManager(lm);
 
-        adapter = new RecyclerViewAdapter(dummyParentItems);
+        // Realm파일을 저장하는 RealmConfiguration 생성, 등록
+
+
+        realm = Realm.getDefaultInstance();
+        parentItems = realm.where(parentItem.class).findAll();
+        parentItems.addChangeListener(new RealmChangeListener<RealmResults<parentItem>>() {
+            @Override
+            public void onChange(RealmResults<parentItem> element) {
+                Log.d("Realm",  "" + parentItems.size());
+            }
+        });
+        adapter = new RecyclerViewAdapter(parentItems);
         RecyclerView.setAdapter(adapter);
 
         //구석에 있는 플러스버튼이다.
@@ -85,16 +97,42 @@ public class RecyclerListFragment extends Fragment {
 
         //from newItemActivity, parentItem Data Inserted
         if(resultCode == 1203){
-            String taskName = data.getStringExtra("taskName");
-            String memo = data.getStringExtra("memo");
-            int maxDay = data.getIntExtra("maxDay", 1);
-            int color = data.getIntExtra("color", 0);
+            final String taskName = data.getStringExtra("taskName");
+            final int maxDay = data.getIntExtra("maxDay", 1);
+            final int color = data.getIntExtra("color", 0);
 
+            final String memo = data.getStringExtra("memo");
 
-            dummyParentItems.add(new parentItem(taskName, maxDay, color, new childItem(memo)));
-            adapter.notifyParentItemInserted(dummyParentItems.size() - 1);
+            realm.executeTransactionAsync(new Realm.Transaction(){
+                @Override
+                public void execute(Realm realm) {
+                    parentItem pItem = realm.createObject(parentItem.class);
+                    pItem.id = realm.where(parentItem.class).max("id").intValue() + 1;
+                    pItem.taskName = taskName;
+                    pItem.maxDay = maxDay;
+                    pItem.progressBarColor = color;
+                }
+            }, new Realm.Transaction.OnSuccess(){
+                @Override
+                public void onSuccess() {
+                    realm.executeTransactionAsync(new Realm.Transaction(){
+                        @Override
+                        public void execute(Realm realm) {
+                            childItem cItem = realm.createObject(childItem.class);
+                            cItem.id = realm.where(childItem.class).max("id").intValue() + 1;
+                            cItem.memo = memo;
+                        }
+                    }, new Realm.Transaction.OnSuccess(){
+                        @Override
+                        public void onSuccess() {
+                            adapter.notifyParentItemInserted(parentItems.size() - 1);
 
-            Snackbar.make(getView(), "New Item Inserted!", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(getView(), "New Item Inserted!", Snackbar.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+
         }
     }
 

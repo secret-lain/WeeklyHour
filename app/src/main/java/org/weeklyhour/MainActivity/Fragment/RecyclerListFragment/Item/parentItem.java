@@ -2,28 +2,42 @@ package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item;
 
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * parentItem 의 VO
  * parentItem 은 childItem을 가진다.
  */
-public class parentItem implements ParentListItem {
+public class parentItem extends RealmObject implements ParentListItem {
+
+    @PrimaryKey
+    public int id;
+
     public int progressBarColor;
     public String taskName;
     public int maxDay;
     public int currDay;
-    public List<childItem> mChildrenItem;
+
+    @Ignore
+    private Realm realm = Realm.getDefaultInstance();
+
+    @Ignore
+    public RealmList<childItem> mChildrenItem;
+
+    public parentItem(){
+    }
 
     public parentItem(String taskName, int maxDay, int progressBarColor, childItem childrenItem){
         this.progressBarColor = progressBarColor;
         this.taskName = taskName;
         this.maxDay = maxDay;
 
-        //오픈소스라서 List<>를 받아야 하지만 여러개의 childItem이 필요하지 않음.
-        mChildrenItem = new ArrayList<>(1);
-        mChildrenItem.add(childrenItem);
         currDay = 0;
     }
 
@@ -33,9 +47,11 @@ public class parentItem implements ParentListItem {
     }
     public String getMemo(){return mChildrenItem.get(0).memo;}
 
+
+    //Expandable-RecyclerView 가 사용하기 위해 쓰는 Override 함수.
     @Override
     public List<?> getChildItemList() {
-        return mChildrenItem;
+        return realm.where(childItem.class).equalTo("id",id).findAll();
     }
 
     //시작할때 열려있는지?
