@@ -19,8 +19,6 @@ import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.childItem;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.parentItem;
 import org.weeklyhour.MainActivity.R;
 
-import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
@@ -29,7 +27,6 @@ import io.realm.RealmResults;
  * A simple {@link Fragment} subclass.
  */
 public class RecyclerListFragment extends Fragment {
-    List<parentItem> dummyParentItems;
     private RecyclerViewAdapter adapter;
 
     private Realm realm;
@@ -46,6 +43,7 @@ public class RecyclerListFragment extends Fragment {
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +55,6 @@ public class RecyclerListFragment extends Fragment {
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getActivity());
         RecyclerView.setLayoutManager(lm);
 
-        // Realm파일을 저장하는 RealmConfiguration 생성, 등록
 
 
         realm = Realm.getDefaultInstance();
@@ -132,8 +129,6 @@ public class RecyclerListFragment extends Fragment {
                     });
                 }
             });
-
         }
     }
-
 }

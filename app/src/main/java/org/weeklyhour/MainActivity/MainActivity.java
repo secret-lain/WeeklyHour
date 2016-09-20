@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import org.weeklyhour.MainActivity.Fragment.SectionsPageAdapter;
 
@@ -59,16 +58,5 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // 아무기능 없다
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 }
