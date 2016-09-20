@@ -14,7 +14,4 @@ public class childItem extends RealmObject{
     public String memo;
 
     public childItem(){}
-    public childItem(String memo){
-        this.memo = memo;
-    }
 }

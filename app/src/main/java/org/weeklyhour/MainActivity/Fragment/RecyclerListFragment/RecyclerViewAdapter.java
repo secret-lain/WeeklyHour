@@ -20,6 +20,8 @@ import org.weeklyhour.MainActivity.R;
 import java.util.List;
 import java.util.Random;
 
+import io.realm.Realm;
+
 /**
  * 어댑터는 RecyclerView에게 데이터를 전달해주는 역할을 한다.
  * 최초 선언시 RecyclerView에서 사용될 ArrayList<parentItem> 을 갖는다.
@@ -28,6 +30,7 @@ import java.util.Random;
 public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHolder, childViewHolder> {
     private static final Random rnd = new Random();
     private List<? extends ParentListItem> mParentItems;
+    private final Realm realm = Realm.getDefaultInstance();
 
     public RecyclerViewAdapter(@NonNull List<? extends ParentListItem> parentItemList) {
         super(parentItemList);
@@ -85,7 +88,15 @@ public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHol
                 if(childViewHolder.memo.isEnabled()){
                     childViewHolder.memo.setEnabled(false);
                     childViewHolder.editButton.setText("EDIT");
-                    ((parentItem)mParentItems.get(position-1)).setMemo(childViewHolder.memo.getText().toString());
+
+                    //((parentItem)mParentItems.get(position-1)).setMemo(childViewHolder.memo.getText().toString());
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            childItem cItem = (childItem)mParentItems.get(position - 1).getChildItemList().get(0);
+                            cItem.memo = childViewHolder.memo.getText().toString();
+                        }
+                    });
                 }
                 else{
                     childViewHolder.memo.setEnabled(true);

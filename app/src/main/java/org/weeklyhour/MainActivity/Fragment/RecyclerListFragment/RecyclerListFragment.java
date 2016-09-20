@@ -4,6 +4,7 @@ package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -69,7 +70,7 @@ public class RecyclerListFragment extends Fragment {
         RecyclerView.setAdapter(adapter);
 
         //구석에 있는 플러스버튼이다.
-        FloatingActionButton fab = (FloatingActionButton) layout.findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) layout.findViewById(R.id.fab);
         fab.setRippleColor(Color.parseColor("#0000FF"));
         fab.setLongClickable(false);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +83,31 @@ public class RecyclerListFragment extends Fragment {
                 Intent newItemActivityIntent = new Intent(getContext(), newItemActivity.class);
                 startActivityForResult(newItemActivityIntent, 0);
                 //requestCode 0 으로 newItemActivityIntent를 호출(MainActivity는 생존)
+            }
+        });
+
+        RecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            Handler handler = new Handler();
+            final Runnable mRunnable = new Thread() {
+                @Override
+                public void run() {
+                    fab.show();
+                }
+            };
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+
+                if (newState == android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE){
+                    if(((Thread)mRunnable).isInterrupted() == false){
+                        ((Thread)mRunnable).interrupt();
+                        handler.removeCallbacks(mRunnable);
+                    }
+                    handler.postDelayed(mRunnable, 5000);
+                }
+                else
+                    fab.hide();
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
 
