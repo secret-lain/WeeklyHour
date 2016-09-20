@@ -2,7 +2,7 @@
     <!-- mainActivity margin -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="recycler_item_margin">5dp</dimen>
+    <dimen name="recycler_item_margin">3dp</dimen>
 
     <!-- newItemActivity margin -->
     <dimen name="item_activity_horizontal_margin">16dp</dimen>
@@ -17,7 +17,7 @@
 
 
     <!-- for RoundCornerProgressBar -->
-    <dimen name="corner_radius">15dp</dimen>
+    <dimen name="corner_radius">5dp</dimen>
     <dimen name="inBarTextSize">15dp</dimen>
 
 </resources>
