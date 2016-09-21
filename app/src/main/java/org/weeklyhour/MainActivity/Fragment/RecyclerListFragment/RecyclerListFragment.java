@@ -22,6 +22,7 @@ import org.weeklyhour.MainActivity.R;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
+import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 
 /**
  * RecyclerView
@@ -70,19 +71,23 @@ public class RecyclerListFragment extends Fragment {
         parentItems.addChangeListener(new RealmChangeListener<RealmResults<parentItem>>() {
             @Override
             public void onChange(RealmResults<parentItem> element) {
-                Log.d("Realm",  "" + parentItems.size());
+                Log.d("Realm", "RecyclerListFragment::parentItems changed, size: " + parentItems.size());
+                adapter.notifyParentItemRangeChanged(0, parentItems.size());
+                //DataSetChanged 가 안먹혀서 존나 불편함
             }
         });
 
+        //set Item Animation
+        recyclerView.setItemAnimator(new FadeInAnimator());
 
         // bottom|right|end FloatingActionButton
         final FloatingActionButton fab = (FloatingActionButton) layout.findViewById(R.id.fab);
         fab.setLongClickable(true);
         fab.setOnClickListener(new View.OnClickListener() {
+            //버튼 클릭시 netItemActivity로 이동.
+            //requestCode 0 으로 newItemActivityIntent를 호출(MainActivity는 생존)
             @Override
             public void onClick(View view) {
-                //버튼 클릭시 netItemActivity로 이동.
-                //requestCode 0 으로 newItemActivityIntent를 호출(MainActivity는 생존)
 
                 Intent newItemActivityIntent = new Intent(getContext(), newItemActivity.class);
                 startActivityForResult(newItemActivityIntent, 0);

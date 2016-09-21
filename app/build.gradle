@@ -22,15 +22,21 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-    compile 'com.android.support:support-v4:24.2.0'
-    compile "com.android.support:support-core-utils:24.2.0"
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile "com.android.support:support-core-utils:24.2.1"
 
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
     compile 'com.larswerkman:HoloColorPicker:1.5'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.4'
 
+    //for ViewHover, see https://github.com/daimajia/AndroidViewHover
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.easing:library:1.0.0@aar'
+    compile 'com.daimajia.androidanimations:library:1.1.2@aar'
+    compile 'com.daimajia.androidviewhover:library:1.0.4@aar'
     apply plugin: 'realm-android'
 }
