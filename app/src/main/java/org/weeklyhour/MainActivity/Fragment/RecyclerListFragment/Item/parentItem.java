@@ -2,8 +2,6 @@ package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item;
 
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 
-import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.ViewHolder.parentViewHolder;
-
 import java.util.List;
 
 import io.realm.Realm;
@@ -12,11 +10,12 @@ import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * parentItem 의 VO
- * parentItem 은 childItem을 가진다.
+ * parentItem 은 childItem을 가져야 하지만,
+ * RealmResults<> 가 실시간 업데이트 되는점에 착안,
+ * Expandable-RecyclerView가 Parent-Child item의 연결을 확인하려고 만든 getChildItemList에서
+ * 같은 id의 childItem을 그냥 return 해버리는 방법으로 구현.
  */
 public class parentItem extends RealmObject implements ParentListItem {
-
     @PrimaryKey
     public int id;
 
@@ -27,18 +26,6 @@ public class parentItem extends RealmObject implements ParentListItem {
 
     @Ignore
     private Realm realm = Realm.getDefaultInstance();
-
-    @Ignore
-    private parentViewHolder.childOpenCheckCallback childOpenCheckCallback;
-    public void callCloseChild(){
-        childOpenCheckCallback.onChildOpenCheckCallback();
-    }
-    public void setOnChildOpenCheckCallback(parentViewHolder.childOpenCheckCallback callback){
-        childOpenCheckCallback = callback;
-    }
-
-    public parentItem(){}
-
 
     //Expandable-RecyclerView 가 사용하기 위해 쓰는 Override 함수.
     @Override
@@ -52,29 +39,5 @@ public class parentItem extends RealmObject implements ParentListItem {
         return false;
     }
 
-
-
-    public static void swap(parentItem left, parentItem right) throws CloneNotSupportedException {
-        int dummy_progressBarColor;
-        String dummy_taskName;
-        int dummy_maxDay;
-        int dummy_currDay;
-
-        dummy_currDay = right.currDay;
-        dummy_maxDay = right.maxDay;
-        dummy_progressBarColor = right.progressBarColor;
-        dummy_taskName = right.taskName;
-
-
-        right.currDay = left.currDay;
-        right.maxDay = left.maxDay;
-        right.progressBarColor = left.progressBarColor;
-        right.taskName = left.taskName;
-
-        left.currDay = dummy_currDay;
-        left.maxDay = dummy_maxDay;
-        left.progressBarColor = dummy_progressBarColor;
-        left.taskName = dummy_taskName;
-    }
-
+    public parentItem(){}
 }

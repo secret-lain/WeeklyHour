@@ -13,11 +13,19 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /*
-탭이 있는 메인액티비티이다.
+MaintActivity
+ㄴ 1. Appbar
+    ㄴ 1-1. Toolbar
+    ㄴ 1-2. TabLayout
+ㄴ 2. ViewPager
 
-mSectionsPagerAdapter 프래그먼트 매니징을 한다. 최초 선언시 입력한 tabCount만큼 반환한다.
-mViewPager는 수평으로 드래그했을때의 처리를 돕는다.
+1.Appbar // 커스텀 액션바. setSupportActionBar()를 통해 MainActivity의 Actionbar를 등록한다.
+    상단은 toolbar(옵션메뉴를 지정하고, 타이틀명이 들어간다)
+    하단은 프래그먼트의 탭을 표시하기 위한 TabLayout.
 
+2. ViewPager // PageAdapter를 통해 Fragment와 Fragment별 PageTitle을 받는다.
+        PageTitle은 TabLayout에게 전달한다.
+        Fragment는 뿌려주고 좌우로 slide 가능하다.
 * */
 public class MainActivity extends AppCompatActivity{
     private SectionsPageAdapter mSectionsPagerAdapter;
@@ -31,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //기본 ActivityName 타이틀바를 지우고 따로 TextView를 사용
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // FragmentAdapter
@@ -40,24 +49,20 @@ public class MainActivity extends AppCompatActivity{
         // FragmentAdapter를 추가한다.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(2);//좌우 2개까지의 Destroy하지않고 가지고있는다
-
+        //mViewPager.setOffscreenPageLimit(2);//좌우 2개까지의 Destroy하지않고 가지고있는다
 
         //TabLayout을 객체화하고, ViewPager를 등록한다
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        //Realm DB를 사용하기 위한 기본 설정. Realm은 Singleton 패턴으로 동작한다.
         realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).build();
-        //Realm.deleteRealm(realmConfig);
         Realm.setDefaultConfiguration(realmConfig);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // menu_main.xml을 inflate해서 사용한다. 이는 현재 Settings 라는 스트링이, 최대 카운트 100이
-        // 정의되어 있다.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
 }

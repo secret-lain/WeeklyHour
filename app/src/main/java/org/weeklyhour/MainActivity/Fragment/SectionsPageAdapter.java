@@ -9,7 +9,7 @@ import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.RecyclerListFra
 
 /**
  * ViewPager Adapter
- *
+ * 현재 달력 Fragment는 사용하지 않고있다.
  */
 public class SectionsPageAdapter extends FragmentPagerAdapter {
     private final int _tabCount = 2;
@@ -37,7 +37,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
+        // return total tab count
         return _tabCount;
     }
 

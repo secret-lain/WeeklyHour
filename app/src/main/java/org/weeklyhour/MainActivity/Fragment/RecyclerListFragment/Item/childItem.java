@@ -4,10 +4,12 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by admin on 2016-09-14.
+ * childItem.
+ * List형태로 parentItem에 종속된다.
+ * List형태인 이유는 Expandable-RecyclerView 오픈소스가 그렇게 만들어졌다.
+ * Realm을 사용하기 때문에 parentItem은 RealmResults<childItem> 형식으로 반환한다.
  */
 public class childItem extends RealmObject{
-
     @PrimaryKey
     public int id;
 

@@ -71,6 +71,11 @@ public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHol
         //Adapter에 적용된 ArrayList에서 순차적으로 꺼내와서 실제 객체에 적용
         parentViewHolder.progressbar.setProgressColor(pItem.progressBarColor);
         parentViewHolder.progressbar.setMax(pItem.maxDay);
+
+        /*
+        TODO 원래는 currDay 를 넣어야 하지만 BackGroundColor 확인을 위해 랜덤값.
+        이 값은 onPause 이하로 라이프사이클이 내려갈때 다시 갱신되더라.
+        */
         parentViewHolder.progressbar.setProgress(rnd.nextInt(pItem.maxDay + 1));
 
         parentViewHolder.day.setText((int)parentViewHolder.progressbar.getProgress() + " / " + pItem.maxDay);
@@ -104,14 +109,16 @@ public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHol
             }
         });
         childViewHolder.memo.setEnabled(false);
+
+        //EDIT button onClickListener
         childViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(childViewHolder.memo.isEnabled()){
+                    //이미 Edit 모드일 경우. Disable TextView, Realm update
                     childViewHolder.memo.setEnabled(false);
                     childViewHolder.editButton.setText("EDIT");
 
-                    //((parentItem)mParentItems.get(position-1)).setMemo(childViewHolder.memo.getText().toString());
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
@@ -121,12 +128,14 @@ public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHol
                     });
                 }
                 else{
+                    //Edit 모드가 아니었을 경우(기본), 버튼텍스트를 변경하고 소프트키보드를 띄움
                     childViewHolder.memo.setEnabled(true);
                     childViewHolder.editButton.setText("DONE!");
 
                     childViewHolder.memo.requestFocus();//포커스를 옮김
-                    childViewHolder.memo.setSelection(childViewHolder.memo.getText().length());
-                    //커서를 맨 뒤로 옮김
+                    childViewHolder.memo.setSelection(childViewHolder.memo.getText().length());//커서를 맨 뒤로 옮김
+
+                    //키보드를 띄움
                     InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
