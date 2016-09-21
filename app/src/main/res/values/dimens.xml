@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="recycler_item_margin">3dp</dimen>
+    <dimen name="title_text_size">20dp</dimen>
 
     <!-- newItemActivity margin -->
     <dimen name="item_activity_horizontal_margin">16dp</dimen>

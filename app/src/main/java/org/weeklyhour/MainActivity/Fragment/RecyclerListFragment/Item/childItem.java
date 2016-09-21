@@ -14,4 +14,13 @@ public class childItem extends RealmObject{
     public String memo;
 
     public childItem(){}
+
+    public static void swap(childItem left, childItem right){
+        String dummy_memo;
+
+        dummy_memo = right.memo;
+
+        right.memo = left.memo;
+        left.memo = dummy_memo;
+    }
 }

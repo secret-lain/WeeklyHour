@@ -10,7 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +18,24 @@ import android.view.ViewGroup;
 import org.weeklyhour.InsertItemActivity.newItemActivity;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.childItem;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.parentItem;
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.helper.OnStartDragListener;
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.helper.SimpleItemTouchHelperCallback;
 import org.weeklyhour.MainActivity.R;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecyclerListFragment extends Fragment {
+public class RecyclerListFragment extends Fragment implements OnStartDragListener {
     private RecyclerViewAdapter adapter;
 
     private Realm realm;
-    private RealmResults<parentItem> parentItems;
+    private RealmList<parentItem> parentItems;
+
+    private ItemTouchHelper mItemTouchHelper;
 
        public RecyclerListFragment() {
         // Required empty public constructor
@@ -50,6 +54,7 @@ public class RecyclerListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View layout = inflater.inflate(R.layout.fragment_recycler_list, container, false);
+
         RecyclerView RecyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
         RecyclerView.setHasFixedSize(true);
 
@@ -59,15 +64,16 @@ public class RecyclerListFragment extends Fragment {
 
 
         realm = Realm.getDefaultInstance();
-        parentItems = realm.where(parentItem.class).findAll();
-        parentItems.addChangeListener(new RealmChangeListener<RealmResults<parentItem>>() {
-            @Override
-            public void onChange(RealmResults<parentItem> element) {
-                Log.d("Realm",  "" + parentItems.size());
-            }
-        });
-        adapter = new RecyclerViewAdapter(parentItems);
+        parentItems = new RealmList<>();
+        RealmResults<parentItem> rResult = realm.where(parentItem.class).findAll();
+        parentItems.addAll(rResult.subList(0, rResult.size()));
+
+        adapter = new RecyclerViewAdapter(parentItems, this);
         RecyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(RecyclerView);
 
         //구석에 있는 플러스버튼이다.
         final FloatingActionButton fab = (FloatingActionButton) layout.findViewById(R.id.fab);
@@ -156,5 +162,10 @@ public class RecyclerListFragment extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
     }
 }

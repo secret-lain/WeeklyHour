@@ -12,11 +12,12 @@ import org.weeklyhour.MainActivity.R;
 /**
  * Created by admin on 2016-09-14.
  */
-public class parentViewHolder extends ParentViewHolder {
+public class parentViewHolder extends ParentViewHolder{
     public RoundCornerProgressBar progressbar;
     public TextView taskName;
     public TextView day;
     public ImageView toggleArrow;
+    public ImageView reorder;
 
     public parentViewHolder(final View itemView) {
         super(itemView);
@@ -25,25 +26,49 @@ public class parentViewHolder extends ParentViewHolder {
         progressbar = (RoundCornerProgressBar) itemView.findViewById(R.id.RoundCornerProgressBar);
         day = (TextView) itemView.findViewById(R.id.day);
         toggleArrow = (ImageView) itemView.findViewById(R.id.toggleArrowImage);
+        reorder = (ImageView) itemView.findViewById(R.id.reorderImage);
 
         //onBind때 해야하지만 collapseView, expandView가 protected라서 Adapter에서 접근불가
         toggleArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isExpanded()){
-                    collapseView();
-                    toggleArrow.setImageResource(R.drawable.arrow_down);
+                    closeChildView();
                 }
                 else{
-                    expandView();
-                    toggleArrow.setImageResource(R.drawable.arrow_up);
+                    openChildView();
                 }
             }
         });
+    }
+
+    public void closeChildView(){
+        if(isExpanded()) {
+            collapseView();
+            toggleArrow.setImageResource(R.drawable.arrow_down);
+        }
+    }
+    public void openChildView(){
+        if(!isExpanded()){
+            expandView();
+            toggleArrow.setImageResource(R.drawable.arrow_up);
+        }
     }
 
     @Override
     public boolean shouldItemViewClickToggleExpansion() {
         return false;
     }
+
+    public interface childOpenCheckCallback{
+        public void onChildOpenCheckCallback();
+    }
+
+    public childOpenCheckCallback callback = new childOpenCheckCallback() {
+        @Override
+        public void onChildOpenCheckCallback() {
+            closeChildView();
+        }
+    };
+
 }
