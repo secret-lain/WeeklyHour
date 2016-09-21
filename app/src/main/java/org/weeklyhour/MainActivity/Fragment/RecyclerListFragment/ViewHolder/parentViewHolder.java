@@ -17,7 +17,6 @@ public class parentViewHolder extends ParentViewHolder{
     public TextView taskName;
     public TextView day;
     public ImageView toggleArrow;
-    public ImageView reorder;
 
     public parentViewHolder(final View itemView) {
         super(itemView);
@@ -26,7 +25,6 @@ public class parentViewHolder extends ParentViewHolder{
         progressbar = (RoundCornerProgressBar) itemView.findViewById(R.id.RoundCornerProgressBar);
         day = (TextView) itemView.findViewById(R.id.day);
         toggleArrow = (ImageView) itemView.findViewById(R.id.toggleArrowImage);
-        reorder = (ImageView) itemView.findViewById(R.id.reorderImage);
 
         //onBind때 해야하지만 collapseView, expandView가 protected라서 Adapter에서 접근불가
         toggleArrow.setOnClickListener(new View.OnClickListener() {
@@ -59,16 +57,4 @@ public class parentViewHolder extends ParentViewHolder{
     public boolean shouldItemViewClickToggleExpansion() {
         return false;
     }
-
-    public interface childOpenCheckCallback{
-        public void onChildOpenCheckCallback();
-    }
-
-    public childOpenCheckCallback callback = new childOpenCheckCallback() {
-        @Override
-        public void onChildOpenCheckCallback() {
-            closeChildView();
-        }
-    };
-
 }
