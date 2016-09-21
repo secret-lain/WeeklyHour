@@ -1,4 +1,4 @@
-package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment;
+package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -27,7 +27,7 @@ import io.realm.Realm;
  * 최초 선언시 RecyclerView에서 사용될 ArrayList<parentItem> 을 갖는다.
  * Created by admin on 2016-09-07.
  */
-public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHolder, childViewHolder>{
+public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHolder, childViewHolder> implements setRealmResultClearCallback{
     private static final Random rnd = new Random();
     private List<? extends ParentListItem> mParentItems;
     private final Realm realm = Realm.getDefaultInstance();
@@ -116,8 +116,52 @@ public class RecyclerViewAdapter extends ExpandableRecyclerAdapter<parentViewHol
                     //키보드를 띄움
                     InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
                 }
+            }
+        });
+    }
+
+    public void addItem(final String taskName, final int maxDay, final int color, final String memo){
+
+        realm.executeTransactionAsync(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                parentItem pItem = realm.createObject(parentItem.class);
+
+                //Primary key increment
+                pItem.id = realm.where(parentItem.class).max("id").intValue() + 1;
+                pItem.taskName = taskName;
+                pItem.maxDay = maxDay;
+                pItem.progressBarColor = color;
+            }
+        }, new Realm.Transaction.OnSuccess(){
+            @Override
+            public void onSuccess() {
+                //정상적으로 parentItem이 삽입된 경우
+                realm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        childItem cItem = realm.createObject(childItem.class);
+                        cItem.id = realm.where(childItem.class).max("id").intValue() + 1;
+                        cItem.memo = memo;
+                    }
+                }, new Realm.Transaction.OnSuccess() {
+                    @Override
+                    public void onSuccess() {
+                        notifyParentItemInserted(mParentItems.size() - 1);
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void setDataInit() {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                notifyParentItemRangeRemoved(0, mParentItems.size());
+                realm.deleteAll();
             }
         });
     }

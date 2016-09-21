@@ -5,8 +5,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.setRealmResultClearCallback;
 import org.weeklyhour.MainActivity.Fragment.SectionsPageAdapter;
 
 import io.realm.Realm;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity{
     private SectionsPageAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private RealmConfiguration realmConfig;
+    private setRealmResultClearCallback callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +59,7 @@ public class MainActivity extends AppCompatActivity{
         //Realm DB를 사용하기 위한 기본 설정. Realm은 Singleton 패턴으로 동작한다.
         realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).build();
         Realm.setDefaultConfiguration(realmConfig);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+
     }
 }

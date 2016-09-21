@@ -11,12 +11,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.weeklyhour.InsertItemActivity.newItemActivity;
-import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.childItem;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.parentItem;
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.RecyclerViewAdapter;
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.setRealmResultClearCallback;
 import org.weeklyhour.MainActivity.R;
 
 import io.realm.Realm;
@@ -38,6 +42,7 @@ public class RecyclerListFragment extends Fragment {
 
     private Realm realm;
     private RealmResults<parentItem> parentItems;
+    public setRealmResultClearCallback callback;
 
     public RecyclerListFragment() {
         // Required empty public constructor
@@ -51,10 +56,11 @@ public class RecyclerListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View layout = inflater.inflate(R.layout.fragment_recycler_list, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+        setHasOptionsMenu(true);
+
 
         //LayoutManager set RecyclerView
         lm = new LinearLayoutManager(getActivity());
@@ -71,8 +77,7 @@ public class RecyclerListFragment extends Fragment {
         parentItems.addChangeListener(new RealmChangeListener<RealmResults<parentItem>>() {
             @Override
             public void onChange(RealmResults<parentItem> element) {
-                Log.d("Realm", "RecyclerListFragment::parentItems changed, size: " + parentItems.size());
-                adapter.notifyParentItemRangeChanged(0, parentItems.size());
+                Log.d("Realm", "RecyclerListFragment::parentItems changed, size: " + element.size());
                 //DataSetChanged 가 안먹혀서 존나 불편함
             }
         });
@@ -126,6 +131,8 @@ public class RecyclerListFragment extends Fragment {
             }
         });
 
+
+        callback = adapter;
         return layout;
     }
 
@@ -144,39 +151,25 @@ public class RecyclerListFragment extends Fragment {
             final String memo = data.getStringExtra("memo");
 
             //DB Insert
-            realm.executeTransactionAsync(new Realm.Transaction(){
-                @Override
-                public void execute(Realm realm) {
-                    parentItem pItem = realm.createObject(parentItem.class);
-
-                    //Primary key increment
-                    pItem.id = realm.where(parentItem.class).max("id").intValue() + 1;
-                    pItem.taskName = taskName;
-                    pItem.maxDay = maxDay;
-                    pItem.progressBarColor = color;
-                }
-            }, new Realm.Transaction.OnSuccess(){
-                @Override
-                public void onSuccess() {
-                    //정상적으로 parentItem이 삽입된 경우
-                    realm.executeTransactionAsync(new Realm.Transaction(){
-                        @Override
-                        public void execute(Realm realm) {
-                            childItem cItem = realm.createObject(childItem.class);
-                            cItem.id = realm.where(childItem.class).max("id").intValue() + 1;
-                            cItem.memo = memo;
-                        }
-                    }, new Realm.Transaction.OnSuccess(){
-                        @Override
-                        public void onSuccess() {
-                            //둘다 정상적으로 삽입된 경우 adapter에 데이터의 변경사항을 알림
-                            adapter.notifyParentItemInserted(parentItems.size() - 1);
-
-                            Snackbar.make(getView(), "New Item Inserted!", Snackbar.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            });
+            adapter.addItem(taskName, maxDay, color, memo);
+            //adapter.notifyParentItemInserted(parentItems.size() - 1);
+            Snackbar.make(getView(), "New Item Inserted!", Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_settings){
+            callback.setDataInit();
+            Snackbar.make(getView(), "Item All Cleared.", Snackbar.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu);
     }
 }
