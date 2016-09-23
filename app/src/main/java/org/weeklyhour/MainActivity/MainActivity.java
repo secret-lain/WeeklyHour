@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.daimajia.androidviewhover.BlurLayout;
+
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.setRealmResultClearCallback;
 import org.weeklyhour.MainActivity.Fragment.SectionsPageAdapter;
 
@@ -57,9 +59,17 @@ public class MainActivity extends AppCompatActivity{
         tabLayout.setupWithViewPager(mViewPager);
 
         //Realm DB를 사용하기 위한 기본 설정. Realm은 Singleton 패턴으로 동작한다.
+        //realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).deleteRealmIfMigrationNeeded().build();
         realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).build();
         Realm.setDefaultConfiguration(realmConfig);
 
+        BlurLayout.setGlobalDefaultDuration(450);
 
     }
+
+/*  ApplicationForCustomFont Application 클래스를 사용할 경우 붙인다.
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }*/
 }

@@ -18,7 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.weeklyhour.InsertItemActivity.newItemActivity;
-import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.parentItem;
+import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.item;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.RecyclerViewAdapter;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.setRealmResultClearCallback;
 import org.weeklyhour.MainActivity.R;
@@ -41,7 +41,7 @@ public class RecyclerListFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private Realm realm;
-    private RealmResults<parentItem> parentItems;
+    private RealmResults<item> parentItems;
     public setRealmResultClearCallback callback;
 
     public RecyclerListFragment() {
@@ -69,16 +69,16 @@ public class RecyclerListFragment extends Fragment {
         //RealmResult set Adapter
         //Adapter set RecyclerView
         realm = Realm.getDefaultInstance();
-        parentItems = realm.where(parentItem.class).findAll();
+        parentItems = realm.where(item.class).findAll();
         adapter = new RecyclerViewAdapter(parentItems);
         recyclerView.setAdapter(adapter);
 
         //RealmResult add ChangeListener = callback when Data UPDATE
-        parentItems.addChangeListener(new RealmChangeListener<RealmResults<parentItem>>() {
+        parentItems.addChangeListener(new RealmChangeListener<RealmResults<item>>() {
             @Override
-            public void onChange(RealmResults<parentItem> element) {
+            public void onChange(RealmResults<item> element) {
                 Log.d("Realm", "RecyclerListFragment::parentItems changed, size: " + element.size());
-                //DataSetChanged 가 안먹혀서 존나 불편함
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -87,7 +87,7 @@ public class RecyclerListFragment extends Fragment {
 
         // bottom|right|end FloatingActionButton
         final FloatingActionButton fab = (FloatingActionButton) layout.findViewById(R.id.fab);
-        fab.setLongClickable(true);
+        fab.setLongClickable(false);
         fab.setOnClickListener(new View.OnClickListener() {
             //버튼 클릭시 netItemActivity로 이동.
             //requestCode 0 으로 newItemActivityIntent를 호출(MainActivity는 생존)
@@ -151,7 +151,7 @@ public class RecyclerListFragment extends Fragment {
             final String memo = data.getStringExtra("memo");
 
             //DB Insert
-            adapter.addItem(taskName, maxDay, color, memo);
+            adapter.addItem(taskName, maxDay, color);
             //adapter.notifyParentItemInserted(parentItems.size() - 1);
             Snackbar.make(getView(), "New Item Inserted!", Snackbar.LENGTH_LONG).show();
         }

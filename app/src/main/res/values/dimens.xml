@@ -19,6 +19,6 @@
 
     <!-- for RoundCornerProgressBar -->
     <dimen name="corner_radius">5dp</dimen>
-    <dimen name="inBarTextSize">15dp</dimen>
+    <dimen name="inBarTextSize">25dp</dimen>
 
 </resources>
