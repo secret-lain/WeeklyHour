@@ -1,12 +1,20 @@
 <resources>
+    <!-- Activity Level String -->
     <string name="app_name">WeeklyHour</string>
     <string name="new_item_activity">새로운 목표 추가</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-
+    <!-- Fragment Title -->
     <string name="tab_objective">주간목표</string>
     <string name="tab_calendar">달력</string>
     <string name="tab_todo">일정</string>
 
+    <!-- Other Text String -->
+    <string name="option_text1">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="delete_title">목표 삭제</string>
+    <string name="delete_content">정말 삭제 하시겠습니까?</string>
+    <string name="delete_agree">삭제</string>
+
+    <string name="cancel">취소</string>
 </resources>

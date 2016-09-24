@@ -1,4 +1,4 @@
-package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item;
+package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.weeklyhour.InsertItemActivity.newItemActivity;
-import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.Item.item;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.RecyclerViewAdapter;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.setRealmResultClearCallback;
 import org.weeklyhour.MainActivity.R;
@@ -70,7 +69,7 @@ public class RecyclerListFragment extends Fragment {
         //Adapter set RecyclerView
         realm = Realm.getDefaultInstance();
         parentItems = realm.where(item.class).findAll();
-        adapter = new RecyclerViewAdapter(parentItems);
+        adapter = new RecyclerViewAdapter(parentItems, this.getContext());
         recyclerView.setAdapter(adapter);
 
         //RealmResult add ChangeListener = callback when Data UPDATE

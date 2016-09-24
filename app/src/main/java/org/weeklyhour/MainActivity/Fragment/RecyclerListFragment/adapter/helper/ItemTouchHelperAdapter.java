@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.helper;
+package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter.helper;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;

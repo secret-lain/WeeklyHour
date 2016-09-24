@@ -32,15 +32,17 @@ dependencies {
     compile "com.android.support:support-core-utils:24.2.1"
 
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
-    compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
+    //compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
     compile 'com.larswerkman:HoloColorPicker:1.5'
     compile 'jp.wasabeef:recyclerview-animators:2.2.4'
     compile 'com.tsengvn:typekit:1.0.1'
+    compile 'com.afollestad.material-dialogs:core:0.9.0.2'
 
     //for ViewHover, see https://github.com/daimajia/AndroidViewHover
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.easing:library:1.0.0@aar'
     compile 'com.daimajia.androidanimations:library:1.1.2@aar'
     compile 'com.daimajia.androidviewhover:library:1.0.4@aar'
+
     apply plugin: 'realm-android'
 }

@@ -17,8 +17,9 @@
 
 
 
-    <!-- for RoundCornerProgressBar -->
+    <!-- for RecyclerView's Item -->
     <dimen name="corner_radius">5dp</dimen>
     <dimen name="inBarTextSize">25dp</dimen>
+    <dimen name="inBarItemMargin">5dp</dimen>
 
 </resources>
