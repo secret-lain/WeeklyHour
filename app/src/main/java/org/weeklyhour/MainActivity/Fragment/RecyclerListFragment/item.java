@@ -7,7 +7,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by admin on 2016-09-23.
  */
 
-public class item extends RealmObject {
+public class item extends RealmObject{
     @PrimaryKey
     public int id;
 
@@ -15,4 +15,5 @@ public class item extends RealmObject {
     public int progressColor;
     public int maxHour;
     public int currHour;
+
 }

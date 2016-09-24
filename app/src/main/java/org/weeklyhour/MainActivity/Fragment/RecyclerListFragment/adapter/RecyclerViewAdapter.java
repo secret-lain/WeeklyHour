@@ -42,7 +42,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ImageView startImageView;
         public ImageView detailImageView;
 
-
         public itemViewHolder(View v, View hover) {
             super(v);
 
@@ -77,7 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(itemViewHolder holder, final int position) {
+    public void onBindViewHolder(final itemViewHolder holder, final int position) {
         //배경은 흰색으로 고정
         holder.mProgressBar.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
 
@@ -103,6 +102,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mBlurLayout.enableZoomBackground(false);
         holder.mBlurLayout.setBlurDuration(700);
 
+
         holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +114,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 Toast.makeText(mContext, mContext.getString(R.string.delete_notice), Toast.LENGTH_SHORT).show();
+                                holder.mBlurLayout.dismissHover();
                                 deleteItem(position);
                             }
                         })
@@ -155,8 +156,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mItems.size();
     }
 
-    public void addItem(final String taskName, final int maxHour, final int color){
+    @Override
+    public void onViewRecycled(itemViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.mBlurLayout.dismissHover();
+    }
 
+    public void addItem(final String taskName, final int maxHour, final int color){
         realm.executeTransactionAsync(new Realm.Transaction(){
             @Override
             public void execute(Realm realm) {

@@ -2,6 +2,7 @@
     <!-- Activity Level String -->
     <string name="app_name">WeeklyHour</string>
     <string name="new_item_activity">새로운 목표 추가</string>
+    <string name="item_information_activity">목표 상세정보</string>
 
     <!-- Fragment Title -->
     <string name="tab_objective">주간목표</string>
