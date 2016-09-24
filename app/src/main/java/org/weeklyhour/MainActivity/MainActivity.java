@@ -13,6 +13,7 @@ import org.weeklyhour.MainActivity.Fragment.SectionsPageAdapter;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.exceptions.RealmMigrationNeededException;
 
 /*
 MaintActivity
@@ -59,9 +60,17 @@ public class MainActivity extends AppCompatActivity{
         tabLayout.setupWithViewPager(mViewPager);
 
         //Realm DB를 사용하기 위한 기본 설정. Realm은 Singleton 패턴으로 동작한다.
-        //realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).deleteRealmIfMigrationNeeded().build();
-        realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).build();
-        Realm.setDefaultConfiguration(realmConfig);
+
+
+        try{
+            realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).build();
+            Realm.setDefaultConfiguration(realmConfig);
+
+            Realm realm = Realm.getDefaultInstance();
+        } catch(RealmMigrationNeededException e){
+            realmConfig = new RealmConfiguration.Builder(this.getApplicationContext()).deleteRealmIfMigrationNeeded().build();
+            Realm.setDefaultConfiguration(realmConfig);
+        }
 
         BlurLayout.setGlobalDefaultDuration(450);
 

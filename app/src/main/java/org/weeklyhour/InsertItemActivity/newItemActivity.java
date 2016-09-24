@@ -79,7 +79,6 @@ public class newItemActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 /*
                 * RequestCode 0
                 * ResultCode 1203

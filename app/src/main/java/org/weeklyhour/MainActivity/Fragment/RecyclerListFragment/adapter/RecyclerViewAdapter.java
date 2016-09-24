@@ -113,24 +113,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                Toast.makeText(mContext, "Delete Positive Button Clicked", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, mContext.getString(R.string.delete_notice), Toast.LENGTH_SHORT).show();
                                 deleteItem(position);
                             }
                         })
                         .negativeText(R.string.cancel)
+                        /*  필요하면 다시 쓰는걸로 한다.
                         .onNegative(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 Toast.makeText(mContext, "Delete Negative Button Clicked", Toast.LENGTH_SHORT).show();
                             }
-                        })
+                        })*/
                         .show();
             }
         });
         holder.startImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Start Button Clicked", Toast.LENGTH_SHORT).show();
+                if(v.getTag().equals("startTag")){
+                    Toast.makeText(mContext, "Start Button Clicked", Toast.LENGTH_SHORT).show();
+                    ((ImageView)v).setImageResource(R.drawable.pause_48dp);
+                    v.setTag("pauseTag");
+                }
+                else if(v.getTag().equals("pauseTag")){
+                    Toast.makeText(mContext, "Pause Button Clicked", Toast.LENGTH_SHORT).show();
+                    ((ImageView)v).setImageResource(R.drawable.arrow_right_dark_48dp);
+                }
             }
         });
         holder.detailImageView.setOnClickListener(new View.OnClickListener() {

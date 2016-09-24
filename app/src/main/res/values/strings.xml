@@ -15,6 +15,9 @@
     <string name="delete_title">목표 삭제</string>
     <string name="delete_content">정말 삭제 하시겠습니까?</string>
     <string name="delete_agree">삭제</string>
+    <string name="delete_notice">아이템이 삭제되었습니다</string>
+
+    <string name="start_tag">startTag</string>
 
     <string name="cancel">취소</string>
 </resources>
