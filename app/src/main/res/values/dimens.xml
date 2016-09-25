@@ -10,6 +10,10 @@
     <dimen name="item_activity_vertical_margin">16dp</dimen>
     <dimen name="item_activity_left_margin">8dp</dimen>
 
+    <!-- itemInformation Padding -->
+    <dimen name="info_activity_horizontal_padding">20dp</dimen>
+    <dimen name="info_activity_vertical_padding">20dp</dimen>
+    <dimen name="info_text_size">18sp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>

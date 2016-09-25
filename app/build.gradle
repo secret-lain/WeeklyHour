@@ -45,4 +45,5 @@ dependencies {
     compile 'com.daimajia.androidviewhover:library:1.0.4@aar'
 
     apply plugin: 'realm-android'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
 }

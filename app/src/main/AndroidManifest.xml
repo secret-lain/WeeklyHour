@@ -32,7 +32,7 @@
         <activity
             android:name="org.weeklyhour.ItemInformationAcitvity.itemInformationActivity"
             android:label="@string/item_information_activity"
-            android:theme="@style/Theme.AppCompat.Dialog"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
             ></activity>
     </application>
 
