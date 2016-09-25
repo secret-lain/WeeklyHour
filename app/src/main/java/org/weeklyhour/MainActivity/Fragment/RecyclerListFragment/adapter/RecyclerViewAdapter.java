@@ -1,6 +1,7 @@
 package org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidviewhover.BlurLayout;
 
+import org.weeklyhour.ItemInformationAcitvity.itemInformationActivity;
 import org.weeklyhour.MainActivity.Fragment.RecyclerListFragment.item;
 import org.weeklyhour.MainActivity.R;
 
@@ -146,6 +148,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.detailImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent toInfoActivity = new Intent(mContext, itemInformationActivity.class);
+                toInfoActivity.putExtra("position", position);
+                mContext.startActivity(toInfoActivity);
+
                 Toast.makeText(mContext, "Detail Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
@@ -158,8 +164,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onViewRecycled(itemViewHolder holder) {
-        super.onViewRecycled(holder);
         holder.mBlurLayout.dismissHover();
+        super.onViewRecycled(holder);
     }
 
     public void addItem(final String taskName, final int maxHour, final int color){

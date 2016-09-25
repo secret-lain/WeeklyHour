@@ -34,7 +34,6 @@ public class newItemActivity extends AppCompatActivity {
 
         final EditText taskName = (EditText) findViewById(R.id.taskNameEditText);
         final EditText memo = (EditText) findViewById(R.id.memoEditText);
-        this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         /*
         * Custom Library - ColorPicker Init
         * */
