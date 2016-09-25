@@ -150,7 +150,7 @@ public class RecyclerListFragment extends Fragment {
             final String memo = data.getStringExtra("memo");
 
             //DB Insert
-            adapter.addItem(taskName, maxDay, color);
+            adapter.addItem(taskName, maxDay, color, memo);
             //adapter.notifyParentItemInserted(parentItems.size() - 1);
             Snackbar.make(getView(), "New Item Inserted!", Snackbar.LENGTH_LONG).show();
         }

@@ -8,52 +8,85 @@
     android:paddingTop="@dimen/info_activity_vertical_padding"
     tools:context="org.weeklyhour.ItemInformationAcitvity.itemInformationActivity"
     android:orientation="vertical"
-    android:layout_height="500dp"
+    android:layout_height="wrap_content"
     android:layout_width="350dp"
     android:paddingEnd="@dimen/info_activity_vertical_padding"
     android:paddingStart="@dimen/info_activity_vertical_padding">
 
-    <GridLayout
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="2"
-        android:rowCount="4"
-        android:layout_gravity="center"
-        android:foregroundGravity="center">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:text="taskName : "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView11"
-            android:textSize="@dimen/info_text_size" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:ems="10"
-            android:id="@+id/editText4"
-            android:textSize="@dimen/info_text_size" />
+            <TextView
+                android:text="taskName : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:textSize="@dimen/info_text_size"
+                android:textAlignment="textEnd" />
 
-        <TextView
-            android:text="        hour : "
-            android:layout_width="107dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView10"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:textSize="@dimen/info_text_size"
-            android:textAlignment="center" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/taskNameEditText_info"
+                android:textSize="@dimen/info_text_size" />
+        </TableRow>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:ems="10"
-            android:id="@+id/editText5"
-            android:textSize="@dimen/info_text_size" />
-    </GridLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:text="hour : "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:textSize="@dimen/info_text_size"
+                android:textAlignment="textEnd" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/hourEditText_info"
+                android:textSize="@dimen/info_text_size" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:text="memo : "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView12"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:textSize="@dimen/info_text_size"
+                android:textAlignment="textEnd" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/memoEditText_info"
+                android:textSize="@dimen/info_text_size" />
+        </TableRow>
+
+    </TableLayout>
+
 </LinearLayout>

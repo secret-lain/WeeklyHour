@@ -149,10 +149,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 Intent toInfoActivity = new Intent(mContext, itemInformationActivity.class);
-                toInfoActivity.putExtra("position", position);
+                toInfoActivity.putExtra("itemID", mItems.get(position).id);
                 mContext.startActivity(toInfoActivity);
 
-                Toast.makeText(mContext, "Detail Button Clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "Detail Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -168,7 +168,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         super.onViewRecycled(holder);
     }
 
-    public void addItem(final String taskName, final int maxHour, final int color){
+    public void addItem(final String taskName, final int maxHour, final int color, final String memo){
         realm.executeTransactionAsync(new Realm.Transaction(){
             @Override
             public void execute(Realm realm) {
@@ -180,6 +180,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 mItem.maxHour = maxHour;
                 mItem.currHour = 0;
                 mItem.progressColor = color;
+                mItem.memo = memo;
+
             }
         }, new Realm.Transaction.OnSuccess(){
             @Override

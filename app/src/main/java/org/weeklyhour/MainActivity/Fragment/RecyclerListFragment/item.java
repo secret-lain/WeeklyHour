@@ -15,4 +15,5 @@ public class item extends RealmObject{
     public int progressColor;
     public int maxHour;
     public int currHour;
+    public String memo;
 }
